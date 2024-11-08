@@ -1,0 +1,2 @@
+# User-info
+# Application de Formulaire d'Informations Utilisateur  Cette application web permet aux utilisateurs de saisir leurs informations personnelles (nom, prénom, adresse, téléphone, etc.) et de les enregistrer dans un fichier texte (`info.txt`).
