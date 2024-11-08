@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulaire d'Enregistrement</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* General body styling */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f4f8;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 110vh;
+    }
+
+    /* Container for the login form */
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Card-style container for the form */
+    .login-card {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    /* Heading styling */
+    h1 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    /* Form styling */
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    /* Form group styling */
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 5px;
+    }
+
+    .form-group input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+        color: #333;
+    }
+
+    /* Input focus effect */
+    .form-group input:focus {
+        outline: none;
+        border-color: #4CAF50;
+    }
+
+    /* Submit button styling */
+    button {
+        padding: 12px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    /* Message styling */
+    #message {
+        margin-top: 20px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    /* Responsive design */
+    @media (max-width: 600px) {
+        .login-card {
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 20px;
+        }
+
+        button {
+            font-size: 14px;
+        }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <div id="avatar" class="avatar">🧑‍🧑‍🧒</div>
+    <h3 class="mb-4">CRÉER UN COMPTE</h3>
+    <form id="registrationForm">
+      <div class="form-group">
+        <label for="firstName">Prénom</label>
+        <input type="text" class="form-control" id="firstName" required>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Nom</label>
+        <input type="text" class="form-control" id="lastName" required>
+      </div>
+      <div class="form-group">
+        <label for="street">Rue</label>
+        <input type="text" class="form-control" id="street" required>
+      </div>
+      <div class="form-group">
+        <label for="city">Ville</label>
+        <input type="text" class="form-control" id="city" required>
+      </div>
+      <div class="form-group">
+        <label for="country">Pays</label>
+        <input type="text" class="form-control" id="country" required>
+      </div>
+      <div class="form-group">
+        <label for="postalCode">Code Postal</label>
+        <input type="text" class="form-control" id="postalCode" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Numéro de Téléphone</label>
+        <input type="tel" class="form-control" id="phone" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+      const street = document.getElementById('street').value;
+      const city = document.getElementById('city').value;
+      const country = document.getElementById('country').value;
+      const postalCode = document.getElementById('postalCode').value;
+      const phone = document.getElementById('phone').value;
+
+      // Change l'avatar pour les initiales après l'inscription
+      const initials = `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`;
+      document.getElementById('avatar').textContent = initials;
+
+      // Envoie des données au serveur
+      fetch('/save-info', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, lastName, street, city, country, postalCode, phone })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message); // Show message to user
+        window.location.href = 'https://www.666.fr'; // Redirect after successful submission
+      })
+      .catch(error => console.error('Erreur:', error));
+    });
+  </script>
+</body>
+</html>
